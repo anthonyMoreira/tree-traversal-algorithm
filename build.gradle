@@ -1,0 +1,40 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.3'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.anthony'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	testImplementation(platform("io.cucumber:cucumber-bom:7.18.1"))
+	testImplementation("io.cucumber:cucumber-java")
+	testImplementation("io.cucumber:cucumber-junit-platform-engine")
+	testImplementation("org.junit.platform:junit-platform-suite")
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
